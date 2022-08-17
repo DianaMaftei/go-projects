@@ -11,10 +11,10 @@ type logWriter struct{}
 
 func main() {
 	resp, err := http.Get("http://google.com")
-	if err != nil {
-		fmt.Println("Error:", err)
-		os.Exit(1)
-	}
+	handleErr(err)
+	defer resp.Body.Close()
+
+	fmt.Println("Response status:", resp.Status)
 
 	// basic
 	// body := make([]byte, 99999)
@@ -24,6 +24,13 @@ func main() {
 	// better
 	lw := logWriter{}
 	io.Copy(lw, resp.Body)
+}
+
+func handleErr(err error) {
+	if err != nil {
+		fmt.Println("Error:", err)
+		os.Exit(1)
+	}
 }
 
 func (logWriter) Write(bs []byte) (int, error) {
