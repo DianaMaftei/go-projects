@@ -1,0 +1,17 @@
+<div id="container" style="padding-left: 25%; padding-right: 25%; padding-top: 30px">
+    <h1 style="font-family:verdana; color:#00ADD8">{{.Title}}</h1>
+    {{range .Story}}
+        <p>{{.}}</p>
+    {{end}}
+
+    {{if .Options}}
+        <hr>
+        <h3 style="font-family:verdana; color:#00ADD8">What do you want to do?</h3>
+        {{range .Options}}
+            <div><a style="color:black" href="/{{.Arc}}"> {{.Text}}</a></div>
+            <br>
+        {{end}}
+    {{else}}
+        <h3>The end. Hope you had a great time!</h3>
+    {{end}}
+</div>
