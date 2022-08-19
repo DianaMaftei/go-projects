@@ -25,3 +25,10 @@ A program that acts as a url shortener, by looking at the path of an incoming HT
 A choose your own adventure game, in web page format
 - parses a JSON that contains story arcs for the adventure
 - creates an HTTP server and an HTTP Handler to parse an HTML Template and populate it with story info
+
+## 04.html_link_parser - (from https://github.com/gophercises/link)
+An HTML document parser that returns all the links inside the page
+- parses an HTML page
+- gets all the <a> links
+- populates a list of {href, text} type
+- tests parsing functions
