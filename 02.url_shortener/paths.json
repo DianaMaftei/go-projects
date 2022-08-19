@@ -1,0 +1,14 @@
+[
+  {
+    "path": "/encoding/json",
+    "url": "https://pkg.go.dev/encoding/json"
+  },
+  {
+    "path": "/encoding/csv",
+    "url": "https://pkg.go.dev/encoding/csv@go1.19"
+  },
+  {
+    "path": "/encoding/xml",
+    "url": "https://pkg.go.dev/encoding/xml@go1.19"
+  }
+]

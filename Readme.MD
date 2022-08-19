@@ -13,3 +13,10 @@ A program that quizzes a user with questions from a file.
 - prompts user for answer from keyboard
 - runs a timer that stops the quiz when it runs out
 - displays quiz results to user
+- 
+## 02.url_shortener - (from https://github.com/gophercises/urlshort)
+A program that acts as a url shortener, by looking at the path of an incoming HTTP request and redirecting it if it finds a matching url
+- creates an HTTP server and an HTTP Handler to redirect incoming requests
+- parses yaml and json files for path to match and url to redirect to
+- populates a DB with an SQL script that creates a table and inserts paths and urls
+- reads paths and urls from DB
