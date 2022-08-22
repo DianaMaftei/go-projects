@@ -24,7 +24,7 @@ func TestGetTextShouldReturnTextContentInHtml(t *testing.T) {
 	expected := "body content\n    more content here\n\tA link to a page"
 
 	// Act
-	actual := GetText(doc)
+	actual := getText(doc)
 
 	// Assert
 	if actual != expected {
@@ -42,7 +42,7 @@ func TestGetHrefShouldGetHrefAttrFromNode(t *testing.T) {
 	expected := "/page"
 
 	// Act
-	actual := GetHref(&node)
+	actual := getHref(&node)
 
 	// Assert
 	if actual != expected {
@@ -56,7 +56,7 @@ func TestParseLinkNodesShouldGetAllLinksInHtml(t *testing.T) {
 	var linkNodes []html.Node
 
 	// Act
-	ParseLinkNodes(doc, &linkNodes)
+	parseLinkNodes(doc, &linkNodes)
 
 	// Assert
 	if len(linkNodes) != 2 {

@@ -3,30 +3,37 @@ package parser
 import (
 	"fmt"
 	"golang.org/x/net/html"
+	"io"
 	"log"
 	"os"
 	"strings"
 )
 
-func ParseFile(fileName string) *html.Node {
-	f, err := os.Open(fileName)
-	handleError(err, fmt.Sprintf("Unable to read file %s", fileName))
-
-	doc, err := html.Parse(f)
-	handleError(err, fmt.Sprintf("Unable to parse file %s", fileName))
-	return doc
+type Link struct {
+	Href string
+	Text string
 }
 
-func ParseLinkNodes(node *html.Node, nodes *[]html.Node) {
+func Parse(r io.Reader) []Link {
+	doc, err := html.Parse(r)
+	handleError(err, fmt.Sprintf("Unable to parse html"))
+
+	var linkNodes []html.Node
+	parseLinkNodes(doc, &linkNodes)
+
+	return buildLinks(linkNodes)
+}
+
+func parseLinkNodes(node *html.Node, nodes *[]html.Node) {
 	if node.Type == html.ElementNode && node.Data == "a" {
 		*nodes = append(*nodes, *node)
 	}
 	for child := node.FirstChild; child != nil; child = child.NextSibling {
-		ParseLinkNodes(child, nodes)
+		parseLinkNodes(child, nodes)
 	}
 }
 
-func GetHref(node *html.Node) string {
+func getHref(node *html.Node) string {
 	for _, attr := range node.Attr {
 		if attr.Key == "href" {
 			return attr.Val
@@ -35,10 +42,23 @@ func GetHref(node *html.Node) string {
 	return ""
 }
 
-func GetText(node *html.Node) string {
+func getText(node *html.Node) string {
 	var sb strings.Builder
 	buildText(node, &sb)
 	return strings.TrimSpace(sb.String())
+}
+
+func buildLinks(linkNodes []html.Node) []Link {
+	links := make([]Link, len(linkNodes))
+	for i, node := range linkNodes {
+		href := getHref(&node)
+		if len(href) == 0 {
+			continue
+		}
+		text := getText(&node)
+		links[i] = Link{href, text}
+	}
+	return links
 }
 
 func buildText(node *html.Node, sb *strings.Builder) {

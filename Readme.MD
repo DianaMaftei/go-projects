@@ -32,3 +32,10 @@ An HTML document parser that returns all the links inside the page
 - gets all the <a> links
 - populates a list of {href, text} type
 - tests parsing functions
+
+## 05.sitemap - (from https://github.com/gophercises/sitemap)
+A project that parses website for links (starting from root link)
+- uses the parser from project 04.html_link_parser to parse html pages for links 
+- recursively checks all the pages linked on the same domain
+- populates a list of Urls of type Url{loc}
+- writes the list of urls to a sitemap.xml that follows the standard sitemap protocol 0.9
